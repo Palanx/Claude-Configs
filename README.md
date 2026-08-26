@@ -79,9 +79,17 @@ you want from Customize in the desktop sidebar.
 every machine: the model, the theme, the plugins and their marketplace, and a
 `permissions.ask` list covering the git and `gh` commands that should never run unattended.
 
-The plugins and the theme are a convenience — a minute of clicking on a new machine. The
-`ask` list is not: a missing permission rule announces itself only after something has
-already happened.
+The two plugin keys do less than they look like they do, and the difference is worth
+knowing before trusting them. `extraKnownMarketplaces` **is** applied automatically: once
+you trust the folder, Claude Code adds the marketplace without asking. `enabledPlugins`
+installs nothing — a plugin from an external source stays reported as not installed, and
+Claude Code shows you the `claude plugin install` command to run. So a fresh machine does
+not arrive with the plugins; it arrives knowing which ones are missing and how to get
+them.
+
+That is the whole value of those two keys: a checklist that announces itself instead of
+one you have to remember. The `ask` list is different in kind — a missing permission rule
+announces itself only after something has already run.
 
 **`statusLine` is deliberately absent.** Its command is an absolute path into the plugin
 cache, carrying both the username and the plugin's version number
