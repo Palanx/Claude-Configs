@@ -15,9 +15,10 @@ belongs in that codebase.
 ## Layout
 
 ```
-rules/    → ~/.claude/rules/        loaded every session, all projects
-skills/   → ~/.claude/skills/       loaded on demand, by description match
-gui/      → copy-paste              claude.ai account settings
+rules/          → ~/.claude/rules/          loaded every session, all projects
+skills/         → ~/.claude/skills/         loaded on demand, by description match
+settings.json   → ~/.claude/settings.json   merge; see below
+gui/            → copy-paste                claude.ai account settings
 ```
 
 ## What reads what
@@ -45,6 +46,7 @@ Two consequences worth knowing:
 ```bash
 cp -r rules  ~/.claude/
 cp -r skills ~/.claude/
+cp settings.json ~/.claude/       # fresh machine only — merge by hand otherwise
 ```
 
 Copy, don't symlink: Cowork sessions skip a symlinked `~/.claude/CLAUDE.md`, and a
@@ -70,6 +72,26 @@ you want from Customize in the desktop sidebar.
 | `gamedev-client-architecture` | Structuring game client or simulation code. Centred on the engine boundary: what may depend on Unity/Unreal and what must not. |
 | `global-engineering-guidelines` | Any coding task. Clean code, SOLID, layering, commit discipline, error handling, testing. |
 | `unity-editor-gotchas` | Investigating a rendering, lighting, or reimport symptom reported from the Unity Editor — environment behaviour that looks like a code bug. |
+
+## Settings
+
+`settings.json` carries the parts of `~/.claude/settings.json` that mean the same thing on
+every machine: the model, the theme, the plugins and their marketplace, and a
+`permissions.ask` list covering the git and `gh` commands that should never run unattended.
+
+The plugins and the theme are a convenience — a minute of clicking on a new machine. The
+`ask` list is not: a missing permission rule announces itself only after something has
+already happened.
+
+**`statusLine` is deliberately absent.** Its command is an absolute path into the plugin
+cache, carrying both the username and the plugin's version number
+(`/Users/<you>/.claude/plugins/cache/ponytail/ponytail/<version>/...`). It breaks on any
+other machine and rots on the next plugin update, and it fails silently — an empty status
+line, no error saying why. Keep that key machine-local.
+
+So on a machine that already has a `settings.json`, merge the keys rather than copying the
+file over; a plain copy would drop the local `statusLine` along with anything else set
+there.
 
 ## Conventions
 
