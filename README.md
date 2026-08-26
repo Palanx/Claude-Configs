@@ -66,7 +66,7 @@ you want from Customize in the desktop sidebar.
 
 | Skill | Loads when |
 |---|---|
-| `planning` | A plan is asked for before implementing — bugfix, refactor, feature. Produces a document a person executes step by step, each step independently verifiable. |
+| `planning` | A plan is asked for before implementing — bugfix, refactor, feature. Produces a document a person executes step by step, each step independently verifiable. Detects a [belay](https://github.com/Palanx/Claude-Belay) phase spec and derives the plan from it, flagging what the spec was missing; standalone when there is none. |
 | `tech-debt-log` | Writing or updating a project's triaged debt log: the entry schema and the maintenance rules. The log itself is per-project data and lives in that project. |
 | `architecture-evaluation` | Designing or reviewing a system architecture. Scope assessment, then a tradeoff table across candidates. |
 | `gamedev-client-architecture` | Structuring game client or simulation code. Centred on the engine boundary: what may depend on Unity/Unreal and what must not. |
@@ -105,6 +105,11 @@ there.
 
 - Skills are self-contained. A skill that depends on a tool, a repository layout, or
   another skill says so and says what to do when it is absent.
+- No URLs in `rules/` or `skills/`. Those files load into the context window, and a link
+  sitting in an instruction invites a fetch nobody asked for — tokens and latency spent
+  reading a page the task never needed. Links belong in this README, which no session
+  loads. Name the thing in prose instead; if the skill genuinely needs the content, the
+  content belongs in the skill.
 - No project identifiers, ticket ids, internal URLs, or employer-specific type names.
   Examples are invented, not copied from real work.
 - Rules stay short. They are loaded into every session, so length is a per-session cost;
