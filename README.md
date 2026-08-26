@@ -1,5 +1,10 @@
 # Claude Configs
 
+[![Claude Code](https://img.shields.io/badge/Claude_Code-compatible-D97757?style=flat-square)](https://claude.com/claude-code)
+[![Cursor](https://img.shields.io/badge/Cursor-compatible-1a1a1a?style=flat-square)](https://cursor.com)
+[![claude.ai](https://img.shields.io/badge/claude.ai-pre--prompt-D97757?style=flat-square)](https://claude.ai)
+[![last commit](https://img.shields.io/github/last-commit/Palanx/Claude-Configs?style=flat-square&color=555)](https://github.com/Palanx/Claude-Configs/commits/main)
+
 Personal configuration for Claude: rules that shape every session, skills that load on
 demand, and the pre-prompt for the surface that reads neither.
 
