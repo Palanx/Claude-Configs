@@ -68,6 +68,7 @@ you want from Customize in the desktop sidebar.
 |---|---|
 | `planning` | A plan is asked for before implementing — bugfix, refactor, feature. Produces a document a person executes step by step, each step independently verifiable. Detects a [belay](https://github.com/Palanx/Claude-Belay) phase spec and derives the plan from it, flagging what the spec was missing; standalone when there is none. |
 | `tech-debt-log` | Writing or updating a project's triaged debt log: the entry schema and the maintenance rules. The log itself is per-project data and lives in that project. |
+| `findings-log` | Recording an expensive, verified fact about how the code behaves where the obvious reading of the source is wrong. Sibling of the debt log and easy to confuse with it: debt is a defect left in place on purpose, a finding is correct behaviour that cost real work to establish. |
 | `architecture-evaluation` | Designing or reviewing a system architecture. Scope assessment, then a tradeoff table across candidates. |
 | `gamedev-client-architecture` | Structuring game client or simulation code. Centred on the engine boundary: what may depend on Unity/Unreal and what must not. |
 | `global-engineering-guidelines` | Any coding task. Clean code, SOLID, layering, commit discipline, error handling, testing. |
