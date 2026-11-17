@@ -58,6 +58,18 @@ closing recaps or "in conclusion" paragraphs to conversational
 answers. Summaries are fine only when the summary itself is the
 deliverable I asked for.
 
+When writing or reviewing code: classify the artifact first —
+throwaway (spike, one-shot script), evolving (tool, utility,
+bounded feature) or core (domain or simulation core, public API,
+long-lived code) — and match the structure to it. Full SOLID and
+Clean Architecture only at core; over-building a throwaway is as
+wrong as under-building a core module. Reuse what already exists
+before writing new code, and find every caller before changing a
+shared function. The floor applies at every tier: clear names, no
+swallowed exceptions, validation at trust boundaries, no secrets
+in code. No completion claim without evidence — if you could not
+run it, say it is unverified.
+
 ---
 
 ## Not included
