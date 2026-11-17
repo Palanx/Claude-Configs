@@ -59,14 +59,26 @@ you want from Customize in the desktop sidebar.
 
 | File | What it governs |
 |---|---|
-| `interaction-protocol.md` | When files may be written at all: explicit order only, otherwise ask whether to implement, explain, or plan. Plus the protocol for consulting a project's tech debt log. |
+| `interaction-protocol.md` | When files may be written at all: explicit order only, otherwise ask whether to implement, explain, or plan. Inside a tool's native plan mode, approving the plan is the order. Plus the protocol for consulting a project's tech debt log. |
 | `response-protocol.md` | Language, register, and epistemics: correct wrong premises first, distinguish knowledge from inference, read the source or search the web before asserting, never restate. |
+
+### Plan mode
+
+Inside Claude Code plan mode or Cursor Plan mode, the tool's own flow wins: the plan goes
+to the tool's plan file, outside the project, and is shown in the tool's approval UI. The
+`planning` skill is not used there. Approving the plan — accepting ExitPlanMode in Claude
+Code, clicking Build in Cursor — counts as the explicit order to implement it, so the
+agent starts without waiting for another message.
+
+Cursor picks up the skill-side exclusion from `~/.claude/skills/` but does not read
+`~/.claude/rules/`. If the rules are pasted into Cursor's User Rules, the Plan mode section
+has to be pasted there as well.
 
 ## Skills
 
 | Skill | Loads when |
 |---|---|
-| `planning` | A plan is asked for before implementing — bugfix, refactor, feature. Produces a document a person executes step by step, each step independently verifiable. Detects a [belay](https://github.com/Palanx/Claude-Belay) phase spec and derives the plan from it, flagging what the spec was missing; standalone when there is none. |
+| `planning` | A plan is asked for before implementing — bugfix, refactor, feature. Produces a document a person executes step by step, each step independently verifiable. Detects a [belay](https://github.com/Palanx/Claude-Belay) phase spec and derives the plan from it, flagging what the spec was missing; standalone when there is none. Never inside a tool's native plan mode. |
 | `tech-debt-log` | Writing or updating a project's triaged debt log: the entry schema and the maintenance rules. The log itself is per-project data and lives in that project. |
 | `findings-log` | Recording an expensive, verified fact about how the code behaves where the obvious reading of the source is wrong. Sibling of the debt log and easy to confuse with it: debt is a defect left in place on purpose, a finding is correct behaviour that cost real work to establish. |
 | `architecture-evaluation` | Designing or reviewing a system architecture. Scope assessment, then a tradeoff table across candidates. |
