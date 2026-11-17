@@ -27,6 +27,22 @@ call sites the order did not name. If doing the work correctly means touching
 code outside its stated scope, say so and wait before touching it. Writing a
 plan file is the exception to the no-writes rule: it is what option 3 asks for.
 
+## Always ask first
+
+These never run without an explicit order for that specific action, even inside an approved
+implementation:
+
+| Action | Why |
+|---|---|
+| `git commit` | Message and scope must be intentional |
+| `git push`, and force push above all | Hard to reverse |
+| Deleting files or directories | Data loss |
+| Modifying `.env` or environment config | Environment impact |
+| Installing a new dependency | Supply chain and footprint |
+| Changing a public API contract | Breaking change |
+| Running database migrations | Schema changes are permanent |
+| Deploying to any environment | Production impact |
+
 ## Plan mode
 
 Applies when the tool's native plan mode is active (Claude Code plan mode,

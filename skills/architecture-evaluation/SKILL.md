@@ -216,5 +216,5 @@ aren't recorded are decisions that will be relitigated in every future discussio
 4. **Surface assumptions explicitly.** "I'm assuming X — correct me if wrong."
 5. **Flag irreversible decisions.** Some choices (DB engine, event bus, API contract) are
    extremely expensive to change. Mark them as high-stakes before the user commits.
-6. **Integrate with global-engineering-guidelines.** Pattern selection (§5) and architecture
-   layers (§4 Clean Architecture) from that skill are inputs here, not alternatives.
+6. **Integrate with engineering-guidelines.** The pattern protocol and Clean Architecture
+   layers in its `references/architecture.md` are inputs here, not alternatives.

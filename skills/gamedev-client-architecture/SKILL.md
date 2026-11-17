@@ -5,7 +5,7 @@ description: Architecture guidance for game client code and simulation systems, 
 
 # Game Client & Simulation Architecture
 
-Guidance for structuring client-side game code, with the engine boundary as the first and most consequential decision. Generic engineering rules (SOLID, naming, commits, clean code) live in `global-engineering-guidelines`; system-level tradeoff scoring lives in `architecture-evaluation`. This skill covers only what is specific to games. When those skills are unavailable, apply standard engineering judgment; do not restate their content here.
+Guidance for structuring client-side game code, with the engine boundary as the first and most consequential decision. Generic engineering rules (SOLID, naming, commits, clean code) live in the `engineering` rule and the `engineering-guidelines` skill; system-level tradeoff scoring lives in `architecture-evaluation`. This skill covers only what is specific to games. When those skills are unavailable, apply standard engineering judgment; do not restate their content here.
 
 ## 1. Engine Boundary — evaluate BEFORE proposing any design
 

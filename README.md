@@ -49,6 +49,9 @@ cp -r skills ~/.claude/
 cp settings.json ~/.claude/       # fresh machine only — merge by hand otherwise
 ```
 
+`cp` adds and overwrites but never deletes: after a skill is renamed or removed here,
+delete its old directory under `~/.claude/skills/` by hand.
+
 Copy, don't symlink: Cowork sessions skip a symlinked `~/.claude/CLAUDE.md`, and a
 `~/.claude/rules/` symlink pointing outside the working directory.
 
@@ -59,7 +62,8 @@ you want from Customize in the desktop sidebar.
 
 | File | What it governs |
 |---|---|
-| `interaction-protocol.md` | When files may be written at all: explicit order only, otherwise ask whether to implement, explain, or plan. Inside a tool's native plan mode, approving the plan is the order. Plus the protocol for consulting a project's tech debt log. |
+| `interaction-protocol.md` | When files may be written at all: explicit order only, otherwise ask whether to implement, explain, or plan. Actions that always need their own order (commit, push, delete, migrations, deploy). Inside a tool's native plan mode, approving the plan is the order. Plus the protocol for consulting a project's tech debt log. |
+| `engineering.md` | The engineering floor for any code change: right-sizing tiers, reuse before writing, callers before changing a function, clean code, error handling, security, commit format. Kept short because it loads every session; the situational detail is in the `engineering-guidelines` skill. |
 | `response-protocol.md` | Language, register, and epistemics: correct wrong premises first, distinguish knowledge from inference, read the source or search the web before asserting, never restate. |
 
 ### Plan mode
@@ -83,7 +87,8 @@ has to be pasted there as well.
 | `findings-log` | Recording an expensive, verified fact about how the code behaves where the obvious reading of the source is wrong. Sibling of the debt log and easy to confuse with it: debt is a defect left in place on purpose, a finding is correct behaviour that cost real work to establish. |
 | `architecture-evaluation` | Designing or reviewing a system architecture. Scope assessment, then a tradeoff table across candidates. |
 | `gamedev-client-architecture` | Structuring game client or simulation code. Centred on the engine boundary: what may depend on Unity/Unreal and what must not. |
-| `global-engineering-guidelines` | Any coding task. Clean code, SOLID, layering, commit discipline, error handling, testing. |
+| `engineering-guidelines` | Designing a module, choosing a pattern, writing tests, claiming work is done, or acting on review feedback. A short index over four references loaded one at a time: `architecture` (SOLID, Clean Architecture, pattern protocol), `testing`, `verification` (the evidence each claim needs, with Unity and Android rows), `code-review` (receiving feedback). |
+| `debugging` | Any bug, crash, or failing test, before a fix is proposed. Root cause first, one hypothesis at a time, stop after three failed fixes. Hands intermittent and device-only bugs to `repro-loop`. |
 | `unity-editor-gotchas` | Investigating a rendering, lighting, or reimport symptom reported from the Unity Editor — environment behaviour that looks like a code bug. |
 
 ## Settings
@@ -127,3 +132,13 @@ there.
   Examples are invented, not copied from real work.
 - Rules stay short. They are loaded into every session, so length is a per-session cost;
   anything procedural belongs in a skill instead.
+
+## Provenance
+
+`rules/engineering.md`, `engineering-guidelines` and `debugging` started from the author's own
+guidelines and were reorganised along the lines of
+[engineering-standards](https://github.com/Reinharderino/engineering-standards) (MIT): the
+right-sizing tiers, the reuse and caller rules, the verification table, review reception and
+the debugging phases come from there. That repository in turn distils
+[superpowers](https://github.com/obra/superpowers) (MIT) and
+[ponytail](https://github.com/dietrichgebert/ponytail) (MIT).
