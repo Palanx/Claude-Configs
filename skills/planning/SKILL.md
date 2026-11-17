@@ -8,10 +8,15 @@ description: >
   el plan", "necesito un plan para", "write a plan", "plan this out", "plan para este
   bug", "/planning" — for a bugfix, a refactor, a migration, a feature, or after
   belay's /expand-phase when a human will implement the phase by hand. This produces
-  a document for a person to execute, not a script for the agent to run.
+  a document for a person to execute, not a script for the agent to run. Not for a
+  tool's native plan mode (Claude Code plan mode, Cursor Plan mode) — there, the
+  tool's own plan file and approval flow are used instead.
 ---
 
 # planning
+
+Not for a tool's native plan mode (Claude Code plan mode, Cursor Plan mode): if one is
+active, use the tool's own plan file and approval flow instead of this skill.
 
 Plans exist so a human executes them step by step. A long plan read in one sitting hides
 its own defects; executed one step at a time, defects surface while they are still cheap

@@ -13,7 +13,7 @@ When the request is not an explicit order, stop and ask which I want:
 
 1. Implement it now.
 2. Answer as a question — explanation only, zero file changes.
-3. Write a plan — use the planning skill.
+3. Write a plan — use the planning skill (outside plan mode).
 
 Ask once, in one short message. Never guess. Never start with a "small" edit
 while waiting. Ambiguity resolves to asking, not to acting.
@@ -26,6 +26,19 @@ require as part of it — tests, checks, migrations. It does not cover files or
 call sites the order did not name. If doing the work correctly means touching
 code outside its stated scope, say so and wait before touching it. Writing a
 plan file is the exception to the no-writes rule: it is what option 3 asks for.
+
+## Plan mode
+
+Applies when the tool's native plan mode is active (Claude Code plan mode,
+Cursor Plan mode):
+
+- Do not use the `planning` skill. Write the plan where the tool's plan mode
+  puts it and present it through its own approval UI (ExitPlanMode in Claude
+  Code; the plan view and Build in Cursor).
+- Do not ask the implement / explain / plan question: plan mode already answers it.
+- Approving the plan (accepting ExitPlanMode, clicking Build) is an explicit
+  order to implement that plan. Start implementing right after approval; do not
+  wait for another message. The order covers the approved plan's scope only.
 
 ## Tech debt
 
