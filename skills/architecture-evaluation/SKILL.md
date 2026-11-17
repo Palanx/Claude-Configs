@@ -6,7 +6,8 @@ description: >
   review, propose, validate, or discuss a system architecture, even at a high level.
   Trigger also when the user mentions: "how should I structure this", "what pattern fits here",
   "monolith vs microservices", "should I split this", "is this scalable", "architecture for X",
-  or any phrase implying a structural or system-level decision. Covers scope assessment,
+  or any phrase implying a structural or system-level decision. Covers a stack-free statement
+  of the solution, scope assessment,
   candidate architecture selection, and tradeoff scoring across maintainability, portability,
   complexity, reusability, performance, scalability, and coupling.
 ---
@@ -16,6 +17,29 @@ description: >
 > Before proposing any architecture, run this evaluation. Never recommend a structural approach
 > without completing the scope assessment and tradeoff analysis. Architecture decisions are
 > permanent in practice — get them right upfront.
+
+---
+
+## Phase 0 — Solution Before Stack
+
+State the solution in domain terms before any architecture style, language, framework, or
+library is named. Reaching for a technology first shapes the requirement to fit the tool, and
+the tool's constraints get mistaken for the domain's.
+
+Express, with no technology nouns:
+
+- **Inputs and outputs** — what enters, in what shape, and what leaves.
+- **Data and its shape** — entities, relationships, cardinality, what is authoritative.
+- **Invariants** — what must always hold and what must never happen, whatever the stack.
+- **The transformation** — the process, in plain steps.
+- **State and lifetime** — what is remembered, for how long, what happens when it is lost.
+- **Failure behavior** — each failure mode, and which ones must not lose data.
+- **Boundaries** — trust boundaries and transaction boundaries.
+- **Scale and latency** — the numbers it must hold, stated rather than assumed.
+
+If the solution cannot be described without naming a technology, the problem is not
+understood yet. Scale this to the decision: a paragraph for a bounded change, a section for a
+new system. The invariants found here are what eliminate candidates in Phase 2.
 
 ---
 
@@ -210,7 +234,8 @@ aren't recorded are decisions that will be relitigated in every future discussio
 
 ## Execution Rules
 
-1. **Never skip Phase 1.** A scope-less architecture recommendation is noise.
+1. **Never skip Phase 0 or Phase 1.** A recommendation without a stack-free solution or
+   without scope is noise.
 2. **Never recommend a single option without a tradeoff table.** One option isn't a decision.
 3. **Never score without rationale.** Every cell needs a one-liner justification.
 4. **Surface assumptions explicitly.** "I'm assuming X — correct me if wrong."

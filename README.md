@@ -16,9 +16,11 @@ belongs in that codebase.
 
 ```
 rules/          → ~/.claude/rules/          loaded every session, all projects
+                → ~/.cursor/rules/*.mdc     generated copy for Cursor
 skills/         → ~/.claude/skills/         loaded on demand, by description match
 settings.json   → ~/.claude/settings.json   merge; see below
 gui/            → copy-paste                claude.ai account settings
+scripts/        install.sh                  does the copying above
 ```
 
 ## What reads what
@@ -44,13 +46,19 @@ Two consequences worth knowing:
 ## Install
 
 ```bash
-cp -r rules  ~/.claude/
-cp -r skills ~/.claude/
-cp settings.json ~/.claude/       # fresh machine only — merge by hand otherwise
+./scripts/install.sh
 ```
 
-`cp` adds and overwrites but never deletes: after a skill is renamed or removed here,
-delete its old directory under `~/.claude/skills/` by hand.
+It copies `rules/` and `skills/` into `~/.claude/`, installs `settings.json` only when none
+exists (otherwise merge by hand), and, when `~/.cursor/` exists, writes each rule to
+`~/.cursor/rules/<rule>.mdc` with `alwaysApply: true`. Cursor needs no skill copy: it loads
+`~/.claude/skills/` itself. Cursor documents `~/.cursor/rules` as the place for local user
+rule files but not their format or loading, so check once in Cursor that the rules apply;
+if they do not, paste them into Settings → Rules instead.
+
+The script adds and overwrites but never deletes: `~/.claude/skills/` also holds skills that
+do not come from this repository. After a skill is renamed or removed here, delete its old
+directory by hand.
 
 Copy, don't symlink: Cowork sessions skip a symlinked `~/.claude/CLAUDE.md`, and a
 `~/.claude/rules/` symlink pointing outside the working directory.
@@ -74,9 +82,8 @@ to the tool's plan file, outside the project, and is shown in the tool's approva
 Code, clicking Build in Cursor — counts as the explicit order to implement it, so the
 agent starts without waiting for another message.
 
-Cursor picks up the skill-side exclusion from `~/.claude/skills/` but does not read
-`~/.claude/rules/`. If the rules are pasted into Cursor's User Rules, the Plan mode section
-has to be pasted there as well.
+Cursor picks up the skill-side exclusion from `~/.claude/skills/`, and the rule side from
+the `.mdc` copy `scripts/install.sh` writes — see Install.
 
 ## Skills
 
@@ -85,9 +92,9 @@ has to be pasted there as well.
 | `planning` | A plan is asked for before implementing — bugfix, refactor, feature. Produces a document a person executes step by step, each step independently verifiable. Detects a [belay](https://github.com/Palanx/Claude-Belay) phase spec and derives the plan from it, flagging what the spec was missing; standalone when there is none. Never inside a tool's native plan mode. |
 | `tech-debt-log` | Writing or updating a project's triaged debt log: the entry schema and the maintenance rules. The log itself is per-project data and lives in that project. |
 | `findings-log` | Recording an expensive, verified fact about how the code behaves where the obvious reading of the source is wrong. Sibling of the debt log and easy to confuse with it: debt is a defect left in place on purpose, a finding is correct behaviour that cost real work to establish. |
-| `architecture-evaluation` | Designing or reviewing a system architecture. Scope assessment, then a tradeoff table across candidates. |
+| `architecture-evaluation` | Designing or reviewing a system architecture. The solution stated with no technology in it, then scope assessment, then a tradeoff table across candidates. |
 | `gamedev-client-architecture` | Structuring game client or simulation code. Centred on the engine boundary: what may depend on Unity/Unreal and what must not. |
-| `engineering-guidelines` | Designing a module, choosing a pattern, writing tests, claiming work is done, or acting on review feedback. A short index over four references loaded one at a time: `architecture` (SOLID, Clean Architecture, pattern protocol), `testing`, `verification` (the evidence each claim needs, with Unity and Android rows), `code-review` (receiving feedback). |
+| `engineering-guidelines` | Designing a module, choosing a pattern, writing tests, claiming work is done, or acting on review feedback. A short index over four references loaded one at a time: `architecture` (SOLID, Clean Architecture, pattern protocol), `testing`, `verification` (the evidence each claim needs, with Unity and Android rows), `code-review` (requesting, performing and receiving a review), `delegation` (subagents run in cascade, never in parallel with outputs to merge). |
 | `debugging` | Any bug, crash, or failing test, before a fix is proposed. Root cause first, one hypothesis at a time, stop after three failed fixes. Hands intermittent and device-only bugs to `repro-loop`. |
 | `unity-editor-gotchas` | Investigating a rendering, lighting, or reimport symptom reported from the Unity Editor — environment behaviour that looks like a code bug. |
 
@@ -138,7 +145,8 @@ there.
 `rules/engineering.md`, `engineering-guidelines` and `debugging` started from the author's own
 guidelines and were reorganised along the lines of
 [engineering-standards](https://github.com/Reinharderino/engineering-standards) (MIT): the
-right-sizing tiers, the reuse and caller rules, the verification table, review reception and
-the debugging phases come from there. That repository in turn distils
+right-sizing tiers, the reuse and caller rules, the verification table, code review,
+delegation, the solution-before-stack phase in `architecture-evaluation`, the debugging
+phases and the Cursor output of `scripts/install.sh` come from there. That repository in turn distils
 [superpowers](https://github.com/obra/superpowers) (MIT) and
 [ponytail](https://github.com/dietrichgebert/ponytail) (MIT).
